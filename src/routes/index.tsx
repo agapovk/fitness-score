@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
+import { useLaunchParams } from "@telegram-apps/sdk-react";
 import React from "react";
 
 export const Route = createFileRoute("/")({
@@ -27,6 +28,10 @@ function App() {
 	};
 
 	const [data, setData] = React.useState<Data>(initialData);
+
+	const launchParams = useLaunchParams();
+
+	const { user } = launchParams.tgWebAppData || {};
 
 	return (
 		<div className="p-4 flex flex-col gap-4">
@@ -139,6 +144,11 @@ function App() {
 					<h3>Confirm data</h3>
 				</CardHeader>
 				<CardContent>
+					<p>
+						{user?.first_name} {user?.last_name}
+					</p>
+					<p>{user?.username}</p>
+					<p>{user?.id}</p>
 					<ul className="flex gap-4 justify-between items-center">
 						{Object.entries(data).map(([name, value]) => {
 							return (
@@ -159,7 +169,7 @@ function App() {
 					</Button>
 					<Button
 						className="flex-1"
-						onClick={() => console.log(data)}
+						onClick={() => alert(JSON.stringify(data))}
 						disabled={Object.values(data).some((e) => e === undefined)}
 					>
 						Confirm
