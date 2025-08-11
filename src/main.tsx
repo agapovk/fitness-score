@@ -8,9 +8,14 @@ import { routeTree } from "./routeTree.gen";
 import "./styles.css";
 import reportWebVitals from "./reportWebVitals.ts";
 
-import WebApp from "@twa-dev/sdk";
-// Initialize Telegram WebApp
-WebApp.ready();
+import { backButton, init } from "@telegram-apps/sdk-react";
+
+// Initialize the package.
+init();
+
+// Mount the Back Button, so we will work with
+// the actual component properties.
+backButton.mount();
 
 // Create a new router instance
 const router = createRouter({
